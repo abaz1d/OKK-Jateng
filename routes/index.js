@@ -12,6 +12,7 @@ module.exports = function (db) {
   router.get('/', function (req, res) {
     res.json(new Response({ message: "OKK JATENG API" }, true))
   });
+
   router.post('/auth', async function (req, res) {
     try {
       const { email_user, password } = req.body
@@ -21,6 +22,7 @@ module.exports = function (db) {
         }
 
         if (data.rows.length == 0) {
+          //check username
           return res.json(new Response({ message: "unregistered e-mail" }, false))
         }
 
