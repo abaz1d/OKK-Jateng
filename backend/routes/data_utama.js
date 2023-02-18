@@ -41,7 +41,7 @@ module.exports = function (db) {
       let reqSQL
       let argumentSQL
 
-      reqSQL = 'SELECT * FROM regions ORDER BY id_region ASC'
+      reqSQL = 'SELECT * FROM regions ORDER BY LENGTH(id_region), id_region'
       argumentSQL = ''
 
       let regions = []
@@ -58,7 +58,12 @@ module.exports = function (db) {
         let mainData
         mainData = data.rows
 
-        const id_utama = data.rows[0].id_utama ? data.rows[0].id_utama : '';
+        let id_utama
+        if (data.rows.length > 0) {
+          id_utama = data.rows[0].id_utama ? data.rows[0].id_utama : '';
+        } else {
+          id_utama = ''
+        }
         reqSQL = `SELECT ta.*, r.* FROM tabel_anggota ta LEFT JOIN data_utama du ON ta.id_utama = du.id_utama LEFT JOIN regions r ON du.id_region = r.id_region WHERE ta.id_utama=$1 AND EXTRACT('MONTH' FROM  ta.periode_bulanan) = $2 AND EXTRACT('YEAR' FROM  ta.periode_bulanan) = $3;`
         argumentSQL = [id_utama, date_select.getMonth() + 1, date_select.getFullYear()]
         db.query(reqSQL, argumentSQL, (err, data2) => {
@@ -69,11 +74,13 @@ module.exports = function (db) {
             let total = rows.rows[0]
             db.query(`SELECT id_utama, jumlah_anggota FROM tabel_anggota WHERE id_utama=$1 ORDER BY periode_bulanan DESC LIMIT 1`, [id_utama], (err, arr) => {
               if (err) throw new Error(err)
-              const final = [mainData.concat(arr.rows).reduce(function(result, current) {
-                return Object.assign(result, current);
-              }, {})]
-              // console.log("date", final)
-              
+              let final = []
+              if (mainData.length > 0) {
+                final = [mainData.concat(arr.rows).reduce(function (result, current) {
+                  return Object.assign(result, current);
+                }, {})]
+              } 
+
               res.json(new Response({ mainData: final, childData, regions, total }));
             })
           })

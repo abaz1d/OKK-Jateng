@@ -112,7 +112,7 @@
                 >
               </div>
               <a
-                href="https://api.whatsapp.com/send/?phone=%2B6281548993484&text=Saya+lupa+password+akun+POS+Lurik+Rachmad+saya,+mohon+bantuanya&type=phone_number&app_absent=0"
+                href="https://api.whatsapp.com/send/?phone=%&text=Saya+lupa+password+akun+POS+Lurik+Rachmad+saya,+mohon+bantuanya&type=phone_number&app_absent=0"
                 >Lupa Password?</a
               >
             </div>
@@ -184,8 +184,8 @@
     <div class="font-medium">
       Hai {{ dataPopup.role }} - {{ dataPopup.username }}, Selamat Datang di
       Aplikasi Data Anggota
-      <b class="font-philosopher text-xl text-[#CDA562]">Biro OKK Jateng</b>
-      Cabang {{ dataPopup.nama_region }}
+      <b class="font-philosopher text-xl text-[#CDA562] mr-2">Biro OKK Jateng</b>
+      Lokal {{ dataPopup.nama_region }}
     </div>
   </Notification>
   <!-- END: Basic Non Sticky Notification Content -->

@@ -26,7 +26,6 @@ export const useDashboardStore = defineStore({
             :  `utama?id_region=${String(data_select)}&date_select=${String(date_select)}`
           }`
         );
-
         if (data.success) {
           this.mainData = data.data.mainData;
           this.childData = data.data.childData;

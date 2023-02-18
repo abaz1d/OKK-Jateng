@@ -359,7 +359,7 @@
   >
     <ModalHeader>
       <h2 class="font-medium text-base mx-auto dark:text-white">
-        Profil User & Outlet
+        Profil User & Region
       </h2>
       <a
         @click="profilModal = false"
@@ -508,57 +508,10 @@
     </ModalHeader>
     <ModalBody>
       <div class="search-result__content">
-        <div class="search-result__content__title mb-1">Pages</div>
-        <div class="mb-5">
-          <RouterLink to="/penjualan" class="flex items-center">
-            <div
-              class="w-8 h-8 bg-success/20 dark:bg-success/10 text-success flex items-center justify-center rounded-full"
-            >
-              <CornerLeftUpIcon class="w-4 h-4" />
-            </div>
-            <div class="ml-3">Penjualan</div>
-          </RouterLink>
-          <RouterLink to="/pembelian" class="flex items-center mt-2">
-            <div
-              class="w-8 h-8 bg-pending/10 text-pending flex items-center justify-center rounded-full"
-            >
-              <CornerLeftDownIcon class="w-4 h-4" />
-            </div>
-            <div class="ml-3">Pembelian</div>
-          </RouterLink>
-          <div v-if="data.role == 'Super Admin'" class="flex items-center mt-2">
-            <div
-              class="w-8 h-8 bg-primary/10 dark:bg-primary/20 text-primary/80 flex items-center justify-center rounded-full"
-            >
-              <UsersIcon class="w-4 h-4" />
-            </div>
-            <div class="ml-3">Semua Akun</div>
-          </div>
-        </div>
         <div class="search-result__content__title">
           Jenis User & Hak Aksesnya
         </div>
         <div class="mb-5">
-          <a href="#" class="flex items-center mt-3 zoom-in">
-            <div
-              class="w-8 h-8 bg-white stroke-2 stroke-black p-auto rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110"
-            >
-              <CrownIcon
-                class="w-6 h-6 object-fill stroke-2 stroke-black fill-yellow-200 bg-white mt-1 mx-auto rounded-full"
-              />
-            </div>
-            <div class="ml-3">
-              <kbd
-                class="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500"
-                >Super Admin</kbd
-              >
-            </div>
-            <div
-              class="ml-auto w-auto truncate text-slate-500 text-xs text-right pr-3"
-            >
-              Semua Menu/ Fitur
-            </div>
-          </a>
           <a href="#" class="flex items-center mt-3 zoom-in">
             <div
               class="w-8 h-8 bg-white stroke-2 stroke-black p-auto rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110"
@@ -576,7 +529,7 @@
             <div
               class="ml-auto w-auto truncate text-slate-500 text-xs text-right pr-3"
             >
-              Kecuali SEMUA AKUN & PENGATURAN DATA
+            Memiliki Semua Fitur
             </div>
           </a>
           <a href="#" class="flex items-center mt-3 zoom-in">
@@ -596,7 +549,7 @@
             <div
               class="ml-auto w-auto truncate text-slate-500 text-xs text-right pr-3"
             >
-              Beberapa Menu/ Fitur TRANSAKSI & LAPORAN
+              Beberapa Menu/ Fitur
             </div>
           </a>
         </div>
