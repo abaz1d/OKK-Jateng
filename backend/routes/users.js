@@ -13,7 +13,7 @@ module.exports = function (db) {
       let reqSQL
       let argumentSQL
 
-      reqSQL = 'SELECT * FROM regions ORDER BY id_region ASC'
+      reqSQL = 'SELECT * FROM regions ORDER BY LENGTH(id_region), id_region'
       argumentSQL = ''
 
       let regions = []
