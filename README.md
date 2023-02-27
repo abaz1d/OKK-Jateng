@@ -84,17 +84,12 @@ Email       :operator@gmail.com
 Password    :123
 ```
 
-
 ### Screenshots Client Web Mode
-<img src="https://user-images.githubusercontent.com/95122515/221464934-728fc61e-5d06-4288-bc4d-16cd7da363c0.png" width="49%"> <img src="https://user-images.githubusercontent.com/95122515/221464991-c725ffc6-ff90-4a4a-98a7-909af63a6bee.png" width="49%">
+<img src="https://user-images.githubusercontent.com/95122515/221474810-37d8d454-765d-46eb-9e10-6e247ba579c1.png" width="49%"> <img src="https://user-images.githubusercontent.com/95122515/221474799-488d6657-2376-454a-8cd9-6e0324cb07c4.png" width="49%">
 
-<img src="https://user-images.githubusercontent.com/95122515/221465827-5950d799-923a-41db-8df7-b25bdb9f4aa0.png" width="19%"> <img src="https://user-images.githubusercontent.com/95122515/221465833-2dd1fe9e-022c-4ca7-92cc-299c0c026bc4.png" width="19%"> <img src="https://user-images.githubusercontent.com/95122515/221465838-79009f90-3776-4ecc-8f4b-5b8c512043ea.png" width="19%"> <img src="https://user-images.githubusercontent.com/95122515/221465840-669ba6c9-12a5-4a8f-83a4-9d7783d3779c.png" width="19%"> <img src="https://user-images.githubusercontent.com/95122515/221465841-b9a111f7-db72-4958-9623-a71f954ca6e9.png" width="19%">
-
-<img src="https://user-images.githubusercontent.com/95122515/221466057-9010db98-ae3a-4029-80d7-5a08cd9090d1.png" width="19%"> <img src="https://user-images.githubusercontent.com/95122515/221466061-08807de3-4309-47c8-929a-36f3a4007dbb.png" width="19%"> <img src="https://user-images.githubusercontent.com/95122515/221466064-805ec95f-47b4-4f9e-9327-492c90166b2c.png" width="19%"> <img src="https://user-images.githubusercontent.com/95122515/221466065-72cb8862-dbea-435e-8601-7819bd2a2ab5.png" width="19%"> <img src="https://user-images.githubusercontent.com/95122515/221466069-269c4f60-c684-42a8-aa61-858c82c212c2.png" width="19%">
-
-<img src="https://user-images.githubusercontent.com/95122515/221465102-5ade9e59-ceca-45af-aa9d-0e1194017247.png" width="49%"> <img src="https://user-images.githubusercontent.com/95122515/221465313-18128d9f-a0ef-4466-b0fb-957c4cdcd1a0.png" width="49%">
+<img src="https://user-images.githubusercontent.com/95122515/221474817-7c0d06af-480a-4f46-8f73-6fa0cff539c1.png" width="49%"> <img src="https://user-images.githubusercontent.com/95122515/221474814-9f564652-295d-488a-968b-f4c16767453d.png" width="49%">
 <hr />
 
 ### Screenshots Client Mobile Mode
-<img src="https://user-images.githubusercontent.com/95122515/221466837-74f53ddc-46b7-4e69-89f8-e87469ffa603.png" width="25%"> <img src="https://user-images.githubusercontent.com/95122515/221466858-fb152ca9-96ef-43cd-b7c9-8c630292ed8f.png" width="24%"> <img src="https://user-images.githubusercontent.com/95122515/221467226-907c5cd8-93d7-4970-a1af-cbae5a2cdf03.png" width="25%"> <img src="https://user-images.githubusercontent.com/95122515/221467250-5bd5fc25-356b-4bde-8877-51f84100f2a9.png" width="24%"> 
+<img src="https://user-images.githubusercontent.com/95122515/221474929-2fbe0669-2b17-440c-8da3-89028623c20f.png" width="25%"> <img src="https://user-images.githubusercontent.com/95122515/221474925-c7c39cab-9845-4b90-b902-57c7c4aded3a.png" width="24%"> <img src="https://user-images.githubusercontent.com/95122515/221474932-5b2beb91-db1b-473b-8186-b1589bb71f53.png" width="25%"> <img src="https://user-images.githubusercontent.com/95122515/221474935-2f79f9ac-6dbe-4442-99b4-760d4f143ae2.png" width="24%"> 
 
