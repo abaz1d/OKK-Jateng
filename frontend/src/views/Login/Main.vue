@@ -7,6 +7,7 @@
         <div class="hidden xl:flex flex-col min-h-screen">
           <div class="my-auto">
             <img
+              loading="lazy"
               alt="Biro OKK Jateng HTML"
               width="100"
               height="100"
@@ -14,6 +15,7 @@
               src="@/assets/images/logo-gold.svg"
             />
             <img
+              loading="lazy"
               alt="Biro OKK Jateng HTML"
               width="100"
               height="100"
@@ -40,6 +42,7 @@
           >
             <div class="xl:hidden">
               <img
+                loading="lazy"
                 alt="Biro OKK Jateng HTML"
                 width="100"
                 height="100"
@@ -47,6 +50,7 @@
                 src="@/assets/images/logo-gold.svg"
               />
               <img
+                loading="lazy"
                 alt="Biro OKK Jateng HTML"
                 width="100"
                 height="100"
@@ -184,7 +188,9 @@
     <div class="font-medium">
       Hai {{ dataPopup.role }} - {{ dataPopup.username }}, Selamat Datang di
       Aplikasi Data Anggota
-      <b class="font-philosopher text-xl text-[#CDA562] mr-2">Biro OKK Jateng</b>
+      <b class="font-philosopher text-xl text-[#CDA562] mr-2"
+        >Biro OKK Jateng</b
+      >
       Lokal {{ dataPopup.nama_region }}
     </div>
   </Notification>
