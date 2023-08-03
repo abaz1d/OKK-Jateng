@@ -19,7 +19,7 @@ export const useUserStore = defineStore({
         // const { data } = await request.get("users");
         const { data } = await request.get(
           `${
-            Auth.items.role !== "Admin"
+            Auth.items.role === "Operator"
               ? `users?id_region=${String(Auth.items.id_region)}`
               : `users`
           }`
@@ -30,13 +30,13 @@ export const useUserStore = defineStore({
           return this.rawItems;
         }
       } catch (error) {
-       throw new Error(error)
+        throw new Error(error);
       }
     },
     async addItem(username, role, region, email_user, password) {
       const id_user = Date.now();
-      if (role === 'Admin') {
-      region = 'id_region';
+      if (role === "Admin") {
+        region = "id_region";
       }
       this.rawItems.push({
         id_user,
@@ -64,7 +64,7 @@ export const useUserStore = defineStore({
           });
         }
       } catch (error) {
-       throw new Error(error)
+        throw new Error(error);
       }
     },
     async removeItem(id_user) {
@@ -81,7 +81,7 @@ export const useUserStore = defineStore({
           })
           .catch((error) => console.error(error));
       } catch (error) {
-       throw new Error(error)
+        throw new Error(error);
       }
     },
     async updateItem(user) {
@@ -109,7 +109,7 @@ export const useUserStore = defineStore({
           });
         }
       } catch (error) {
-       throw new Error(error)
+        throw new Error(error);
       }
     },
   },

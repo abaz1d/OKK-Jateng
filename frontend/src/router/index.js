@@ -24,9 +24,8 @@ const routes = [
         path: "semua-akun",
         name: "top-menu-semua-akun",
         component: Users,
-        meta: { authorize: [] },
+        meta: { authorize: ["Operator", "Admin"] },
       },
-     
     ],
   },
   {
@@ -43,7 +42,7 @@ const routes = [
         path: "semua-akun",
         name: "side-menu-semua-akun",
         component: Users,
-        meta: { authorize: [] },
+        meta: { authorize: ["Operator", "Admin"] },
       },
     ],
   },
@@ -61,7 +60,7 @@ const routes = [
         path: "semua-akun",
         name: "simple-menu-semua-akun",
         component: Users,
-        meta: { authorize: [] },
+        meta: { authorize: ["Operator", "Admin"] },
       },
     ],
   },

@@ -38,7 +38,9 @@
         <nav aria-label="breadcrumb" class="-intro-x h-full mr-auto">
           <ol class="breadcrumb breadcrumb-light">
             <li class="breadcrumb-item">
-              <a v-if="data.role !== 'Admin'" href="#">{{ data.nama_region }}</a>
+              <a v-if="data.role !== 'Admin'" href="#">{{
+                data.nama_region
+              }}</a>
               <a v-else href="#">Admin</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">
@@ -91,7 +93,7 @@
                   <div
                     class="ml-auto w-auto truncate text-slate-500 text-xs text-right pr-3"
                   >
-                   Memiliki Semua Fitur
+                    Memiliki Semua Fitur
                   </div>
                 </a>
                 <a href="javascript:;" class="flex items-center mt-3 zoom-in">
@@ -153,8 +155,8 @@
             aria-label="user"
             class="w-8 h-8 bg-white stroke-2 stroke-black p-auto rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110"
           >
-            <CrownIcon
-              v-if="data.role == 'Super Admin'"
+            <SmileIcon
+              v-if="data.role == 'Guest'"
               class="w-6 h-6 object-fill stroke-2 stroke-black fill-yellow-200 bg-white mt-1 mx-auto rounded-full"
             />
             <UserIcon
@@ -184,10 +186,7 @@
                 class="hover:bg-white/5"
                 @click="profilModal = true"
               >
-                <CrownIcon
-                  v-if="data.role == 'Super Admin'"
-                  class="w-4 h-4 mr-2"
-                />
+                <SmileIcon v-if="data.role == 'Guest'" class="w-4 h-4 mr-2" />
                 <UserIcon
                   v-else-if="data.role == 'Admin'"
                   class="w-4 h-4 mr-2"
@@ -430,8 +429,8 @@
                 <div
                   class="flex items-start my-auto border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                 >
-                  <CrownIcon
-                    v-if="data.role == 'Super Admin'"
+                  <SmileIcon
+                    v-if="data.role == 'Guest'"
                     class="w-6 h-6 stroke-2 stroke-black fill-yellow-200 bg-white -mt-1 mr-2 rounded-full whitespace-nowrap"
                   />
                   <UserIcon
@@ -529,7 +528,7 @@
             <div
               class="ml-auto w-auto truncate text-slate-500 text-xs text-right pr-3"
             >
-            Memiliki Semua Fitur
+              Memiliki Semua Fitur
             </div>
           </a>
           <a href="#" class="flex items-center mt-3 zoom-in">

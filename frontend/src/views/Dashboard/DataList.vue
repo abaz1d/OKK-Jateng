@@ -38,7 +38,7 @@
           {{ detail.alamat }}
         </div>
       </div>
-      <Dropdown class="ml-3" v-show="data.role !== 'Admin'">
+      <Dropdown class="ml-3" v-show="data.role == 'Operator'">
         <DropdownToggle
           tag="a"
           href="javascript:;"
