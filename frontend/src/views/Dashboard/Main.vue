@@ -1,6 +1,6 @@
 <template>
   <div class="grid grid-cols-12 gap-6">
-    <div class="col-span-12 2xl:col-span-9">
+    <div class="col-span-12 xl:col-span-9">
       <div class="grid grid-cols-12 gap-6">
         <!-- BEGIN: General Report -->
         <div class="col-span-12 mt-8">
@@ -69,18 +69,18 @@
         <!-- END: General Report -->
       </div>
     </div>
-    <div class="col-span-12 2xl:col-span-3">
-      <div class="2xl:border-l -mb-10 pb-10">
-        <div class="2xl:pl-6 grid grid-cols-12 gap-x-6 2xl:gap-x-0 gap-y-6">
+    <div class="col-span-12 xl:col-span-3">
+      <div class="xl:border-l -mb-10 pb-10">
+        <div class="xl:pl-6 grid grid-cols-12 gap-x-6 xl:gap-x-0 gap-y-6">
           <!-- BEGIN: Important Notes -->
           <div
-            class="col-span-12 xl:col-span-12 xl:col-start-1 xl:row-start-1 2xl:col-start-auto 2xl:row-start-auto mt-3 2xl:mt-8 -mb-5"
+            class="col-span-12 xl:col-span-12 xl:col-start-1 xl:row-start-1 mt-3 xl:mt-8 - mb-5"
           >
             <div class="intro-x flex items-center h-10">
               <h2 class="text-lg font-medium truncate mr-auto w-2/4">
                 Detail Data
               </h2>
-              <div class="relative 2xl:w-2/4 w-56 2xl:mx-auto ml-auto">
+              <div class="relative xl:w-2/4 w-56 xl:mx-auto ml-auto">
                 <div
                   class="absolute rounded-l w-10 h-full flex items-center justify-center bg-slate-100 border text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400"
                 >
@@ -496,9 +496,26 @@
             class="form-control pl-12"
           />
         </div>
+        <label for="regular-form-1" class="form-label">Anggota KTA</label>
+        <input
+          v-model="anggota_kta"
+          id="regular-form-1"
+          type="number"
+          class="form-control mb-5"
+          placeholder="Jumlah Total Anggota"
+        />
+        <label for="regular-form-1" class="form-label">Anggota Non KTA</label>
+        <input
+          v-model="anggota_non_kta"
+          id="regular-form-1"
+          type="number"
+          class="form-control mb-5"
+          placeholder="Jumlah Total Anggota"
+        />
         <label for="regular-form-1" class="form-label">Total Anggota</label>
         <input
           v-model="anggota_bulanan"
+          disabled
           id="regular-form-1"
           type="number"
           class="form-control"
@@ -556,7 +573,9 @@ const data_select = ref(
 );
 
 const date_bulanan = ref(moment(new Date().setDate(1)).format("D MMM, YYYY"));
-const anggota_bulanan = ref();
+const anggota_bulanan = ref(0);
+const anggota_kta = ref(0);
+const anggota_non_kta = ref(0);
 const more_edit = ref("");
 const itemDel = ref("");
 const id_utama = ref("");
@@ -597,6 +616,8 @@ const resetModal = () => {
 
   date_bulanan.value = moment(new Date().setDate(1)).format("D MMM, YYYY");
   anggota_bulanan.value = 0;
+  anggota_kta.value = 0;
+  anggota_non_kta.value = 0;
   more_edit.value = "";
   itemDel.value = "";
 

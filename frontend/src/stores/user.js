@@ -35,7 +35,7 @@ export const useUserStore = defineStore({
     },
     async addItem(username, role, region, email_user, password) {
       const id_user = Date.now();
-      if (role === "Admin") {
+      if (role !== "Operator") {
         region = "id_region";
       }
       this.rawItems.push({
