@@ -15,6 +15,11 @@ export const useSideMenuStore = defineStore("sideMenu", {
         title: "Pengaturan Data",
         subMenu: [
           {
+            icon: "ServerIcon",
+            pageName: "side-menu-data-utama",
+            title: "Data Utama",
+          },
+          {
             icon: "UsersIcon",
             pageName: "side-menu-semua-akun",
             title: "Semua Akun",
@@ -59,7 +64,7 @@ export const useSideMenuStore = defineStore("sideMenu", {
         // if (Role !== "Admin") {
         //   return Title !== "Pengaturan Data";
         // } else {
-          return item;
+        return item;
         // }
       }),
   },

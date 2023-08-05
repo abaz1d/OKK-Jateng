@@ -4,6 +4,7 @@ import SideMenu from "@/layouts/side-menu/Main.vue";
 import SimpleMenu from "@/layouts/simple-menu/Main.vue";
 import TopMenu from "@/layouts/top-menu/Main.vue";
 import Dashboard from "@/views/Dashboard/Main.vue";
+import DataUtama from "@/views/DataUtama/Main.vue";
 import Users from "@/views/Users/Main.vue";
 import Login from "@/views/Login/Main.vue";
 import ErrorPage from "@/views/ErrorPage/Main.vue";
@@ -26,6 +27,12 @@ const routes = [
         component: Users,
         meta: { authorize: ["Operator", "Admin"] },
       },
+      {
+        path: "data-utama",
+        name: "top-menu-data-utama",
+        component: DataUtama,
+        meta: { authorize: ["Guest", "Admin"] },
+      },
     ],
   },
   {
@@ -44,6 +51,12 @@ const routes = [
         component: Users,
         meta: { authorize: ["Operator", "Admin"] },
       },
+      {
+        path: "data-utama",
+        name: "side-menu-data-utama",
+        component: DataUtama,
+        meta: { authorize: ["Guest", "Admin"] },
+      },
     ],
   },
   {
@@ -61,6 +74,12 @@ const routes = [
         name: "simple-menu-semua-akun",
         component: Users,
         meta: { authorize: ["Operator", "Admin"] },
+      },
+      {
+        path: "data-utama",
+        name: "simple-menu-data-utama",
+        component: DataUtama,
+        meta: { authorize: ["Guest", "Admin"] },
       },
     ],
   },

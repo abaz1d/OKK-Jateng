@@ -15,6 +15,11 @@ export const useTopMenuStore = defineStore("topMenu", {
         title: "Pengaturan Data",
         subMenu: [
           {
+            icon: "ServerIcon",
+            pageName: "top-menu-data-utama",
+            title: "Data Utama",
+          },
+          {
             icon: "UsersIcon",
             pageName: "top-menu-semua-akun",
             title: "Semua Akun",
@@ -59,7 +64,7 @@ export const useTopMenuStore = defineStore("topMenu", {
         // if (Role !== "Admin") {
         //   return Title !== "Pengaturan Data";
         // } else {
-          return item;
+        return item;
         // }
       }),
   },
