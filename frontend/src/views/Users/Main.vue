@@ -88,14 +88,17 @@
               />
             </div>
             <div class="col-span-12 form-switch mb-5">
-              <label for="pos-form-6" class="form-label mb-1">Password</label>
-              <input
-                v-if="isEdit"
-                class="form-check-input m-2"
-                type="checkbox"
-                v-model="passEdit"
-              />
-              <br />
+              <div class="mb-2">
+                <input
+                  v-if="isEdit"
+                  class="form-checkbox h-5 w-5 text-blue-600 mr-2 rounded"
+                  type="checkbox"
+                  v-model="passEdit"
+                />
+                <label for="pos-form-6" class="form-label mb-1"
+                  >Edit Password</label
+                >
+              </div>
               <label
                 v-if="passEdit"
                 for="pos-form-6"

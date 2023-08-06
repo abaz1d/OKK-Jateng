@@ -11,7 +11,9 @@
             >
               <!-- <img alt="Midone - HTML Admin Template" class="rounded-md" :src="faker.images[0]" /> -->
               <div class="absolute bottom-0 text-white px-5 pb-5 z-10">
-                <a href="" class="block font-medium text-base"
+                <a
+                  href="javascript:void(0);"
+                  class="block font-medium text-md xl:text-base"
                   >{{ detail.id_region }} - {{ detail.nama_region }}</a
                 >
                 <span class="text-white/90 text-xs font-medium mt-3">
@@ -21,22 +23,43 @@
             </div>
             <div class="text-slate-600 dark:text-slate-500 mt-5">
               <div class="flex items-center">
-                <MapIcon class="ml-4 w-4 h-4 mr-2" />Wilayah :
+                <MapIcon class="ml-4 w-4 h-4 mr-2" /><span
+                  class="hidden 2xl:block"
+                  >Wilayah </span
+                >:
                 <p class="inline-block ml-auto mr-4">
                   {{ detail.nama_region }}
                 </p>
               </div>
               <div class="flex items-center mt-2">
-                <CalendarRangeIcon class="ml-4 w-4 h-4 mr-2" /> Periode Bulan :
+                <CalendarRangeIcon class="ml-4 w-4 h-4 mr-2" />
+                <span class="hidden 2xl:block">Periode Bulan </span>:
                 <p class="inline-block ml-auto mr-4">
                   {{ moment(detail.periode_bulanan).format("MMMM YYYY") }}
                 </p>
               </div>
-              <div class="flex items-center mt-2">
-                <UsersIcon class="ml-4 w-4 h-4 mr-2" /> Total Jumlah Anggota :
-                <p class="inline-block ml-auto mr-4">
-                  {{ detail.jumlah_anggota }}
-                </p>
+              <div class="border rounded-md items-center py-2 mt-2">
+                <div class="flex items-center">
+                  <UserCheckIcon class="ml-4 w-4 h-4 mr-2" />
+                  <span class="hidden 2xl:block">Anggota KTA </span>:
+                  <p class="inline-block ml-auto mr-4">
+                    {{ detail.anggota_kta }}
+                  </p>
+                </div>
+                <div class="flex items-center mt-2">
+                  <UserXIcon class="ml-4 w-4 h-4 mr-2" />
+                  <span class="hidden 2xl:block">Anggota Non-KTA </span>:
+                  <p class="inline-block ml-auto mr-4">
+                    {{ detail.anggota_non_kta }}
+                  </p>
+                </div>
+                <div class="flex items-center mt-2">
+                  <UsersIcon class="ml-4 w-4 h-4 mr-2" />
+                  <span class="hidden 2xl:block">Total Jumlah Anggota </span>:
+                  <p class="inline-block ml-auto mr-4">
+                    {{ detail.jumlah_anggota }}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -56,7 +79,7 @@
               @click="update(detail)"
               v-show="data.role === 'Operator'"
             >
-              <CheckSquareIcon class="w-4 h-4 mr-1" /> Edit
+              <CheckIcon class="w-4 h-4 mr-1" /> Edit
             </a>
             <a
               class="flex items-center text-danger"

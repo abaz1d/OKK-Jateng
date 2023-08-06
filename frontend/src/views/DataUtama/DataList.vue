@@ -4,14 +4,19 @@
     <div
       class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 px-5 py-4"
     >
+      <!-- {{ objectFiles }} -->
       <div class="w-10 h-10 flex-none image-fit">
         <img
           decoding="async"
           loading="lazy"
           width="100"
           height="100"
-          :src="detail.gambar ? getImgUrl(detail.gambar[2]) : data404"
-          alt="gambar[2]"
+          :src="
+            objectFiles.gambar_papan
+              ? getImgUrl(objectFiles.gambar_papan)
+              : data404
+          "
+          alt="gambar_papan"
           data-action="zoom"
           class="rounded-full"
         />
@@ -48,7 +53,7 @@
         </DropdownToggle>
         <DropdownMenu class="w-40">
           <DropdownContent>
-            <DropdownItem @click="update(detail)">
+            <DropdownItem @click="openUpdate(detail)">
               <Edit2Icon class="w-4 h-4 mr-2" /> Edit Data
             </DropdownItem>
             <DropdownItem @click="openModal_Remove(detail)">
@@ -82,7 +87,11 @@
               <img
                 decoding="async"
                 loading="lazy"
-                :src="detail.gambar ? getImgUrl(detail.gambar[0]) : data404"
+                :src="
+                  objectFiles.gambar_depan
+                    ? getImgUrl(objectFiles.gambar_depan)
+                    : data404
+                "
                 alt="gambar[0]"
                 data-action="zoom"
                 class="w-full rounded-md"
@@ -101,7 +110,11 @@
               <img
                 decoding="async"
                 loading="lazy"
-                :src="detail.gambar ? getImgUrl(detail.gambar[1]) : data404"
+                :src="
+                  objectFiles.gambar_dalam
+                    ? getImgUrl(objectFiles.gambar_dalam)
+                    : data404
+                "
                 alt="gambar[1]"
                 data-action="zoom"
                 class="w-full rounded-md"
@@ -120,8 +133,12 @@
               <img
                 decoding="async"
                 loading="lazy"
-                :src="detail.gambar ? getImgUrl(detail.gambar[2]) : data404"
-                alt="gambar[2]"
+                :src="
+                  objectFiles.gambar_papan
+                    ? getImgUrl(objectFiles.gambar_papan)
+                    : data404
+                "
+                alt="gambar_papan"
                 data-action="zoom"
                 class="w-full rounded-md"
               />
@@ -139,7 +156,11 @@
               <img
                 decoding="async"
                 loading="lazy"
-                :src="detail.gambar ? getImgUrl(detail.gambar[1]) : data404"
+                :src="
+                  objectFiles.gambar_dalam
+                    ? getImgUrl(objectFiles.gambar_dalam)
+                    : data404
+                "
                 alt="gambar[1]"
                 data-action="zoom"
                 class="w-full rounded-md"
@@ -257,15 +278,13 @@
                 <div
                   class="w-full sm:pl-3 py-1 sm:text-left text-center text-sm border-0 border-b-2 border-gray-400 rounded-md dark:border-white dark:text-white outline-none focus:border-blue-400"
                 >
-                  <a
-                    :href="
-                      detail.file_sk ? getFileUrl(detail.file_sk) : data404
-                    "
-                    class="btn mb-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                  >
-                    <FileIcon class="w-5 h-5 mr-1 -mt-0.5 inline-block" />
-                    Download
-                  </a>
+                  <embed
+                    v-if="objectFiles.file_sk"
+                    :src="getFileUrl(objectFiles.file_sk)"
+                    type="application/pdf"
+                    class="w-full h-80 mt-4"
+                  />
+                  <span v-else>--</span>
                 </div>
               </div>
             </div>
@@ -283,8 +302,16 @@
                   class="w-full sm:pl-3 py-1 sm:text-left text-center text-sm border-0 border-b-2 border-gray-400 rounded-md dark:border-white dark:text-white outline-none focus:border-blue-400"
                 >
                   <a
+                    target="_blank"
                     :href="
-                      detail.gambar ? getImgUrl(detail.gambar[0]) : data404
+                      objectFiles
+                        ? getImgUrl(objectFiles.gambar_depan)
+                        : data404
+                    "
+                    :download="
+                      objectFiles
+                        ? getImgUrl(objectFiles.gambar_depan)
+                        : data404
                     "
                     class="btn sm:mr-5 mb-2 sm:mb-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                   >
@@ -292,8 +319,16 @@
                     Tampak Depan
                   </a>
                   <a
+                    target="_blank"
                     :href="
-                      detail.gambar ? getImgUrl(detail.gambar[1]) : data404
+                      objectFiles
+                        ? getImgUrl(objectFiles.gambar_dalam)
+                        : data404
+                    "
+                    :download="
+                      objectFiles
+                        ? getImgUrl(objectFiles.gambar_dalam)
+                        : data404
                     "
                     class="btn sm:mr-5 mb-2 sm:mb-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                   >
@@ -301,8 +336,16 @@
                     Tampak Dalam
                   </a>
                   <a
+                    target="_blank"
                     :href="
-                      detail.gambar ? getImgUrl(detail.gambar[2]) : data404
+                      objectFiles
+                        ? getImgUrl(objectFiles.gambar_papan)
+                        : data404
+                    "
+                    :download="
+                      objectFiles
+                        ? getImgUrl(objectFiles.gambar_papan)
+                        : data404
                     "
                     class="btn sm:mr-5 mb-2 sm:mb-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                   >
@@ -371,7 +414,37 @@
                   Jumlah Anggota Terkini
                 </label>
               </div>
-              <div class="relative md:w-3/4">
+              <div class="relative md:w-1/4">
+                <div
+                  class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+                >
+                  <UserCheckIcon
+                    class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                  />
+                </div>
+                <div
+                  class="w-full pl-10 text-left py-2 text-sm border-0 border-b-2 border-gray-400 rounded-md dark:border-white dark:text-white outline-none focus:border-blue-400"
+                >
+                  KTA :
+                  {{ detail.anggota_kta == null ? 0 : detail.anggota_kta }}
+                </div>
+              </div>
+              <div class="relative md:w-1/4">
+                <div
+                  class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+                >
+                  <UserXIcon class="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                </div>
+                <div
+                  class="w-full pl-10 text-left py-2 text-sm border-0 border-b-2 border-gray-400 rounded-md dark:border-white dark:text-white outline-none focus:border-blue-400"
+                >
+                  Non-KTA :
+                  {{
+                    detail.anggota_non_kta == null ? 0 : detail.anggota_non_kta
+                  }}
+                </div>
+              </div>
+              <div class="relative md:w-1/4">
                 <div
                   class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
                 >
@@ -380,7 +453,10 @@
                 <div
                   class="w-full pl-10 text-left py-2 text-sm border-0 border-b-2 border-gray-400 rounded-md dark:border-white dark:text-white outline-none focus:border-blue-400"
                 >
-                  {{ detail.jumlah_anggota }}
+                  Total :
+                  {{
+                    detail.jumlah_anggota == null ? 0 : detail.jumlah_anggota
+                  }}
                 </div>
               </div>
             </div>
@@ -422,6 +498,7 @@ export default {
   props: {
     detail: { type: Object, required: true },
     data: { type: Object, required: true },
+    objectFiles: { type: Object, required: true },
   },
   data() {
     return {
@@ -430,24 +507,30 @@ export default {
   },
   emits: ["openModalRemoveData", "updateData"],
   methods: {
-    async update(e) {
-      this.$emit("updateData", e);
+    async openUpdate(e) {
+      const data = { ...e, ...this.objectFiles };
+      delete data.file_gambar;
+      this.$emit("updateData", data);
     },
-    openModal_Remove(detail) {
-      this.$emit("openModalRemoveData", detail);
+    openModal_Remove(e) {
+      const data = { ...e, ...this.objectFiles };
+      delete data.file_gambar;
+      this.$emit("openModalRemoveData", data);
     },
     getFileUrl(file) {
       if (file) {
-        var surat = file.data.map((b) => String.fromCharCode(b)).join("");
-        return new URL(`${publicPath}file_sk/${surat}`).href;
+        // var surat = file.data.map((b) => String.fromCharCode(b)).join("");
+        // return new URL(`${publicPath}file_sk/${surat}`).href;
+        return new URL(`${publicPath}file_sk/${file}`).href;
       } else {
         return `${new URL(window.location.origin)}` + " 404.png";
       }
     },
     getImgUrl(gambar) {
       if (gambar) {
-        var images = gambar.data.map((b) => String.fromCharCode(b)).join("");
-        return new URL(`${publicPath}gambar_kantor/${images}`).href;
+        // var images = gambar.data.map((b) => String.fromCharCode(b)).join("");
+        // return new URL(`${publicPath}gambar_kantor/${images}`).href;
+        return new URL(`${publicPath}gambar_kantor/${gambar}`).href;
       } else {
         return `${new URL(window.location.origin)}` + " 404.png";
       }

@@ -178,7 +178,8 @@
                   {{ data.username }}
                 </div>
                 <div class="text-xs text-white/60 mt-0.5 dark:text-slate-500">
-                  {{ data.role }} - {{ data.nama_region }}
+                  {{ data.role }} {{ data.role === "Operator" ? "-" : "" }}
+                  {{ data.nama_region }}
                 </div>
               </DropdownHeader>
               <DropdownDivider class="border-white/[0.08]" />

@@ -31,20 +31,20 @@ export const useAuthStore = defineStore({
         }
         return data;
       } catch (error) {
-        throw new Error(error)
+        throw new Error(error);
       }
     },
 
     async logout() {
       try {
         const { data } = await request.get("logout");
-        if (data.success) {
-          router.push("/login");
-          localStorage.removeItem("user");
-          this.user = null;
-        }
+        // if (data.success) {
+        router.push("/login");
+        localStorage.removeItem("user");
+        this.user = null;
+        // }
       } catch (error) {
-        throw new Error(error)
+        throw new Error(error);
       }
     },
   },

@@ -9,9 +9,10 @@
               <div
                 class="z-30 rounded-l w-auto px-1 flex items-center justify-center bg-gray-100 border text-gray-600 dark:bg-dark-1 dark:border-dark-4 -mr-1"
               >
-                <UsersIcon class="mr-1" /> {{ Dashboard.total_anggota }}
+                <UsersIcon class="mr-1" />
+                {{ Dashboard.total_anggota }}
               </div>
-              <TomSelect v-model="data_select" class="w-full">
+              <TomSelect v-model="data_select" class="w-full z-50">
                 <option value="kosong" disabled>
                   --&gt; Total Anggota {{ Dashboard.total_anggota }} dari 35
                   Kota/ Kab&lt;--
@@ -30,6 +31,31 @@
             <h2 v-else class="text-lg font-medium truncate mr-5">
               {{ data.id_region }} - {{ data.nama_region }}
             </h2>
+            <table v-if="data.role !== 'Operator'" class="table-fixed mx-2">
+              <thead>
+                <tr>
+                  <th class="border px-2 py-1" colspan="2">
+                    {{ date_select }}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border">
+                  <td class="border-r px-2 py-1">
+                    <UsersIcon class="block sm:hidden mx-auto" />
+                    <span class="hidden sm:block">Total :</span>
+                  </td>
+                  <td class="px-2 py-1">
+                    <span class="block sm:hidden text-center">{{
+                      Dashboard.total_anggota
+                    }}</span>
+                    <span class="hidden sm:block"
+                      >{{ Dashboard.total_anggota }} Anggota</span
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
 
             <Dropdown
               class="sm:ml-auto ml-3 btn bg-primary flex items-center"
@@ -50,7 +76,7 @@
               </DropdownMenu>
             </Dropdown>
             <a href="" class="ml-3 flex btn items-center text-primary">
-              <RefreshCcwIcon class="w-4 h-4 mr-3" />
+              <RefreshCcwIcon class="w-4 h-4 sm:mr-3 sm:m-0 m-2" />
               <p class="hidden sm:inline-block">Refresh Data</p>
             </a>
           </div>
@@ -60,6 +86,13 @@
               v-for="detail in Dashboard.items"
               :key="detail.id_utama"
               :detail="detail"
+              :objectFiles="
+                JSON.parse(
+                  detail.file_gambar[0].data
+                    .map((b) => String.fromCharCode(b))
+                    .join('')
+                )
+              "
               @openModalRemoveData="openModalRemoveData"
               @updateData="openupdateData"
               :data="data"
@@ -76,7 +109,7 @@
           <div
             class="col-span-12 xl:col-span-12 xl:col-start-1 xl:row-start-1 mt-3 xl:mt-8 - mb-5"
           >
-            <div class="intro-x flex items-center h-10">
+            <div class="intro-x flex items-center h-10 z-0">
               <h2 class="text-lg font-medium truncate mr-auto w-2/4">
                 Detail Data
               </h2>
@@ -307,37 +340,87 @@
               <div
                 class="w-full sm:p-3 py-1 sm:text-left text-center text-sm border-0 border-b-2 border-gray-400 rounded-md dark:border-white dark:text-white outline-none focus:border-blue-400"
               >
-                <Dropzone
-                  ref-key="dropzoneMultipleRef"
-                  :options="{
-                    url: 'https://httpbin.org/post',
-                    acceptedFiles: 'image/*',
-                    thumbnailWidth: 150,
-                    maxFilesize: 1.5,
-                    maxFiles: 3,
-                    addRemoveLinks: true,
-                    headers: {
-                      'Access-Control-Allow-Headers':
-                        'Authorization, Content-Type, Accept, X-Mashape-Authorization',
-                    },
-                  }"
-                  class="dropzone"
-                >
-                  <UploadIcon class="w-10 h-10 mx-auto -mt-8" />
-                  <div class="text-lg font-medium">
-                    Drop files here or click to upload.
+                <div class="grid grid-cols-3 gap-2">
+                  <!-- Upload Gambar Depan -->
+                  <div class="relative">
+                    <label class="block font-medium mb-2">Tampak Depan</label>
+                    <input
+                      class="cursor-pointer w-full text-sm"
+                      type="file"
+                      ref="gambarDepanInput"
+                      @change="previewFile($event, 'gambarDepan')"
+                      accept="image/*"
+                    />
+                    <div v-if="preview.gambarDepan" class="relative">
+                      <img
+                        :src="preview.gambarDepan"
+                        alt="Gambar Depan"
+                        class="w-full object-contain h-40 mt-4 border rounded"
+                      />
+                      <button
+                        @click="removeFile('gambarDepan')"
+                        type="button"
+                        class="absolute top-0 right-0 m-2 bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+                      >
+                        Hapus
+                      </button>
+                    </div>
                   </div>
-                  <div class="text-gray-600 dark:text-white -mb-8">
-                    Maks 3 Foto, Urutan File, Mulai dari kiri <br />
-                    <span class="font-medium"
-                      >Tampak Depan, Tampak Belakang, Plang Nama</span
-                    >.
+
+                  <!-- Upload Gambar Dalam -->
+                  <div class="relative border-r border-l px-2 border-gray-400">
+                    <label class="block font-medium mb-2">Tampak Dalam</label>
+                    <input
+                      class="cursor-pointer w-full text-sm"
+                      type="file"
+                      ref="gambarDalamInput"
+                      @change="previewFile($event, 'gambarDalam')"
+                      accept="image/*"
+                    />
+                    <div v-if="preview.gambarDalam" class="relative">
+                      <img
+                        :src="preview.gambarDalam"
+                        alt="Gambar Dalam"
+                        class="w-full object-contain h-40 mt-4 border rounded"
+                      />
+                      <button
+                        @click="removeFile('gambarDalam')"
+                        type="button"
+                        class="absolute top-0 right-0 m-2 bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+                      >
+                        Hapus
+                      </button>
+                    </div>
                   </div>
-                </Dropzone>
-                <small v-if="isEdit"
-                  >* Untuk Merubah Foto, HAPUS SEMUA Foto Lama terlebih
-                  dahulu</small
-                >
+
+                  <!-- Upload Gambar Papan -->
+                  <div class="relative">
+                    <label class="block font-medium mb-2">Plang Nama</label>
+                    <input
+                      class="cursor-pointer w-full text-sm"
+                      type="file"
+                      ref="gambarPapanInput"
+                      @change="previewFile($event, 'gambarPapan')"
+                      accept="image/*"
+                    />
+                    <div v-if="preview.gambarPapan" class="relative">
+                      <img
+                        :src="preview.gambarPapan"
+                        alt="Gambar Papan"
+                        class="w-full object-contain h-40 mt-4 border rounded"
+                      />
+                      <button
+                        @click="removeFile('gambarPapan')"
+                        type="button"
+                        class="absolute top-0 right-0 m-2 bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+                      >
+                        Hapus
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- ... Add other elements here ... -->
+                </div>
               </div>
             </div>
           </div>
@@ -354,33 +437,31 @@
               <div
                 class="w-full sm:p-3 py-1 sm:text-left text-center text-sm border-0 border-b-2 border-gray-400 rounded-md dark:border-white dark:text-white outline-none focus:border-blue-400"
               >
-                <Dropzone
-                  ref-key="dropzoneSingleRef"
-                  :options="{
-                    url: 'https://httpbin.org/post',
-                    acceptedFiles: 'application/pdf',
-                    thumbnailWidth: 150,
-                    addRemoveLinks: true,
-                    maxFilesize: 1.5,
-                    maxFiles: 1,
-                    headers: {
-                      'Access-Control-Allow-Headers':
-                        'Authorization, Content-Type, Accept, X-Mashape-Authorization',
-                    },
-                  }"
-                  class="dropzone"
-                >
-                  <UploadIcon class="w-10 h-10 mx-auto -mt-8" />
-                  <div class="text-lg font-medium">
-                    Drop files here or click to upload.
+                <div>
+                  <input
+                    class="cursor-pointer"
+                    type="file"
+                    ref="fileInput"
+                    accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    @change="previewFile($event, 'file')"
+                  />
+                  <button
+                    v-if="preview.file"
+                    @click="removeFile('file')"
+                    type="button"
+                    class="absolute top-0 right-0 m-2 bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+                  >
+                    Hapus
+                  </button>
+
+                  <div v-if="preview.file">
+                    <embed
+                      :src="preview.file"
+                      type="application/pdf"
+                      class="w-full h-80 mt-4"
+                    />
                   </div>
-                  <div class="text-gray-600 dark:text-white -mb-10">
-                    <span class="font-medium">File PDF</span>.
-                  </div>
-                </Dropzone>
-                <small v-if="isEdit"
-                  >* Untuk Merubah File, HAPUS File terlebih dahulu</small
-                >
+                </div>
               </div>
             </div>
           </div>
@@ -515,7 +596,6 @@
         <label for="regular-form-1" class="form-label">Total Anggota</label>
         <input
           v-model="anggota_bulanan"
-          disabled
           id="regular-form-1"
           type="number"
           class="form-control"
@@ -558,8 +638,6 @@ const data_utama = ref(false);
 const deleteConfirmationModal = ref(false);
 const publicPath = import.meta.env.VITE_APP_BASE_API;
 const Dashboard = useDashboardStore();
-const dropzoneMultipleRef = ref();
-const dropzoneSingleRef = ref();
 const monthDetailSelect = ref();
 const monthDetailSelect2 = ref();
 
@@ -590,13 +668,58 @@ const input_web = ref("");
 const input_fb = ref("");
 const input_ig = ref("");
 
-provide("bind[dropzoneMultipleRef]", (el) => {
-  dropzoneMultipleRef.value = el;
+const gambarDepanInput = ref(null);
+const gambarDalamInput = ref(null);
+const gambarPapanInput = ref(null);
+const fileInput = ref(null);
+const upload = ref({
+  gambarDepan: null,
+  gambarDalam: null,
+  gambarPapan: null,
+  file: null,
+});
+const preview = ref({
+  gambarDepan: null,
+  gambarDalam: null,
+  gambarPapan: null,
+  file: null,
+});
+const lama = ref({
+  gambarDepan: null,
+  gambarDalam: null,
+  gambarPapan: null,
+  file: null,
 });
 
-provide("bind[dropzoneSingleRef]", (el) => {
-  dropzoneSingleRef.value = el;
-});
+function previewFile(event, key) {
+  const file = event.target.files[0];
+  upload.value[key] = file;
+
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = () => {
+    preview.value[key] = reader.result;
+  };
+}
+
+function removeFile(key) {
+  preview.value[key] = null;
+  upload.value[key] = null;
+
+  let fileInput;
+  if (key == "file") {
+    fileInput = fileInput;
+  } else if (key == "gambarPapan") {
+    fileInput = gambarPapanInput;
+  } else if (key == "gambarDalam") {
+    fileInput = gambarDalamInput;
+  } else if (key == "gambarDepan") {
+    fileInput = gambarDepanInput;
+  }
+  if (fileInput) {
+    fileInput.value.value = "";
+  }
+}
 
 provide("bind[monthDetailSelect]", (el) => {
   monthDetailSelect.value = el;
@@ -632,16 +755,37 @@ const resetModal = () => {
   input_web.value = "";
   input_fb.value = "";
   input_ig.value = "";
-  dropzoneMultipleRef.value.dropzone.removeAllFiles(true);
-  dropzoneSingleRef.value.dropzone.removeAllFiles(true);
+
+  upload.value.gambarDepan = null;
+  upload.value.gambarDalam = null;
+  upload.value.gambarPapan = null;
+  upload.value.file = null;
+  preview.value.gambarDepan = null;
+  preview.value.gambarDalam = null;
+  preview.value.gambarPapan = null;
+  preview.value.file = null;
+  lama.value.gambarDepan = null;
+  lama.value.gambarDalam = null;
+  lama.value.gambarPapan = null;
+  lama.value.file = null;
 };
 watch(data_select, async (e) => {
   Dashboard.getData(e, date_select.value);
   localStorage.setItem("data_region", e);
 });
+watch(anggota_kta, async (e) => {
+  anggota_bulanan.value = e + anggota_non_kta.value;
+});
+watch(anggota_non_kta, async (e) => {
+  anggota_bulanan.value = e + anggota_kta.value;
+});
 
 watch(date_select, async (e) => {
-  Dashboard.getDetail(e, Dashboard.items[0].id_utama);
+  if (Dashboard.items.length > 0) {
+    Dashboard.getDetail(e, Dashboard.items[0].id_utama);
+  } else {
+    alert("Region yang anda pilih kosong atau belum memiliki data");
+  }
 });
 
 const openDataModal = () => {
@@ -657,10 +801,10 @@ const addData = () => {
     input_kota_kabupaten.value,
     input_alamat.value,
     input_nomer.value,
-    file_upload.value[0],
-    file_upload.value[1],
-    file_upload.value[2],
-    sk_file.value,
+    upload.value.gambarDepan,
+    upload.value.gambarDalam,
+    upload.value.gambarPapan,
+    upload.value.file,
     moment(new Date(start_jabatan.value)).format("YYYY-MM-DD"),
     moment(new Date(end_jabatan.value)).format("YYYY-MM-DD"),
     input_web.value,
@@ -669,22 +813,24 @@ const addData = () => {
   );
   resetModal();
 };
-const getUrl = (data) => {
-  if (data) {
-    var images = data.data.map((b) => String.fromCharCode(b)).join("");
-    return new URL(`${publicPath}gambar_kantor/${images}`).href;
+function getFileUrl(file) {
+  if (file) {
+    // var surat = file.data.map((b) => String.fromCharCode(b)).join("");
+    // return new URL(`${publicPath}file_sk/${surat}`).href;
+    return new URL(`${publicPath}file_sk/${file}`).href;
   } else {
     return `${new URL(window.location.origin)}` + " 404.png";
   }
-};
-const getUrlSurat = (data) => {
-  if (data) {
-    var surat = data.data.map((b) => String.fromCharCode(b)).join("");
-    return new URL(`${publicPath}file_sk/${surat}`).href;
+}
+function getImgUrl(gambar) {
+  if (gambar) {
+    // var images = gambar.data.map((b) => String.fromCharCode(b)).join("");
+    // return new URL(`${publicPath}gambar_kantor/${images}`).href;
+    return new URL(`${publicPath}gambar_kantor/${gambar}`).href;
   } else {
     return `${new URL(window.location.origin)}` + " 404.png";
   }
-};
+}
 
 const openupdateData = (detail) => {
   id_utama.value = detail.id_utama;
@@ -692,54 +838,35 @@ const openupdateData = (detail) => {
   input_alamat.value = detail.alamat;
   input_nomer.value = detail.no_telepon;
 
-  let callback = null; // Optional callback when it's done
-  let crossOrigin = null; // Added to the `img` tag for crossOrigin handling
-  let resizeThumbnail = false; // Tells Dropzone whether it should resize the image first
-  if (detail.gambar !== null) {
-    detail.gambar.map((data) => {
-      let url = getUrl(data);
-      let mockFile = {
-        name: url.substring(url.lastIndexOf("/") + 1),
-        size: data.data.toString().length,
-        accepted: true,
-      };
-      dropzoneMultipleRef.value.dropzone.displayExistingFile(
-        mockFile,
-        url,
-        callback,
-        crossOrigin,
-        resizeThumbnail
-      );
-    });
-  }
-  file_upload.value = [];
-
   if (detail.periode !== null) {
     start_jabatan.value = moment(detail.periode[0]).format("D MMM, YYYY");
     end_jabatan.value = moment(detail.periode[1]).format("D MMM, YYYY");
   }
-
-  if (detail.file_sk !== null) {
-    let url = getUrlSurat(detail.file_sk);
-    let mockFile = {
-      name: url.substring(url.lastIndexOf("/") + 1),
-      size: detail.file_sk.data.toString().length,
-      accepted: true,
-    };
-    dropzoneSingleRef.value.dropzone.displayExistingFile(
-      mockFile,
-      url,
-      callback,
-      crossOrigin,
-      resizeThumbnail
-    );
-  }
-  sk_file.value = "";
   if (detail.medsos !== null) {
     input_web.value = detail.medsos[0];
     input_fb.value = detail.medsos[1];
     input_ig.value = detail.medsos[2];
   }
+  upload.value.gambarDepan = null;
+  upload.value.gambarDalam = null;
+  upload.value.gambarPapan = null;
+  upload.value.file = null;
+
+  preview.value.gambarDepan = detail.gambar_depan
+    ? getImgUrl(detail.gambar_depan)
+    : null;
+  preview.value.gambarDalam = detail.gambar_dalam
+    ? getImgUrl(detail.gambar_dalam)
+    : null;
+  preview.value.gambarPapan = detail.gambar_papan
+    ? getImgUrl(detail.gambar_papan)
+    : null;
+  preview.value.file = detail.file_sk ? getFileUrl(detail.file_sk) : null;
+
+  lama.value.gambarDepan = detail.gambar_depan ? detail.gambar_depan : null;
+  lama.value.gambarDalam = detail.gambar_dalam ? detail.gambar_dalam : null;
+  lama.value.gambarPapan = detail.gambar_papan ? detail.gambar_papan : null;
+  lama.value.file = detail.file_sk ? detail.file_sk : null;
   isEdit.value = true;
   ModalData.value = true;
 };
@@ -749,8 +876,14 @@ const updateData = () => {
     input_kota_kabupaten.value,
     input_alamat.value,
     input_nomer.value,
-    file_upload.value,
-    sk_file.value,
+    upload.value.gambarDepan,
+    upload.value.gambarDalam,
+    upload.value.gambarPapan,
+    upload.value.file,
+    lama.value.gambarDepan,
+    lama.value.gambarDalam,
+    lama.value.gambarPapan,
+    lama.value.file,
     moment(new Date(start_jabatan.value)).format("YYYY-MM-DD"),
     moment(new Date(end_jabatan.value)).format("YYYY-MM-DD"),
     input_web.value,
@@ -760,23 +893,39 @@ const updateData = () => {
   resetModal();
 };
 
-const openModalRemoveData = (item) => {
-  itemDel.value = item;
+const openModalRemoveData = (detail) => {
+  itemDel.value = detail;
+  lama.value.gambarDepan = detail.gambar_depan ? detail.gambar_depan : null;
+  lama.value.gambarDalam = detail.gambar_dalam ? detail.gambar_dalam : null;
+  lama.value.gambarPapan = detail.gambar_papan ? detail.gambar_papan : null;
+  lama.value.file = detail.file_sk ? detail.file_sk : null;
   data_utama.value = true;
   deleteConfirmationModal.value = true;
 };
 const removeData = (e) => {
-  Dashboard.removeData(e);
+  Dashboard.removeData(
+    e,
+    lama.value.gambarDepan,
+    lama.value.gambarDalam,
+    lama.value.gambarPapan,
+    lama.value.file
+  );
   resetModal();
 };
 //----------------------------------------------------------------
 const openDetailModal = () => {
-  ModalDetail.value = true;
+  if (Dashboard.items.length > 0) {
+    ModalDetail.value = true;
+  } else {
+    alert("Isi Data Utama terlebih dahulu");
+  }
 };
 const addDetail = () => {
   Dashboard.addDetail(
     moment(new Date(date_bulanan.value)).format("YYYY-MM-DD"),
     anggota_bulanan.value,
+    anggota_kta.value,
+    anggota_non_kta.value,
     Dashboard.items[0].id_utama
   )
     .then((data) => {
@@ -794,13 +943,18 @@ const openupdateTotalAnggota = (detail) => {
     new Date(detail.periode_bulanan).setDate(1)
   ).format("D MMM, YYYY");
   anggota_bulanan.value = detail.jumlah_anggota;
+  anggota_kta.value = detail.anggota_kta == null ? 0 : detail.anggota_kta;
+  anggota_non_kta.value =
+    detail.anggota_non_kta == null ? 0 : detail.anggota_non_kta;
   isEdit.value = true;
   ModalDetail.value = true;
 };
 const updateDetail = () => {
   Dashboard.updateDetail(
     moment(new Date(date_bulanan.value)).format("YYYY-MM-DD"),
-    anggota_bulanan.value
+    anggota_bulanan.value,
+    anggota_kta.value,
+    anggota_non_kta.value
   )
     .then((data) => {
       resetModal();
@@ -821,30 +975,6 @@ const removeItem = (e) => {
 };
 
 onMounted(async function () {
-  const elDropzoneMultipleRef = dropzoneMultipleRef.value;
-  elDropzoneMultipleRef.dropzone.on("addedfile", (e) => {
-    file_upload.value.push(e);
-  });
-  elDropzoneMultipleRef.dropzone.on("removedfile", (e) => {
-    file_upload.value = file_upload.value.filter((item) => {
-      return item.name != e.name;
-    });
-  });
-  elDropzoneMultipleRef.dropzone.on("error", () => {
-    alert("Maksimal 3 Gambar");
-  });
-
-  const elDropzoneSingleRef = dropzoneSingleRef.value;
-  elDropzoneSingleRef.dropzone.on("addedfile", (e) => {
-    sk_file.value = e;
-  });
-  elDropzoneSingleRef.dropzone.on("removedfile", () => {
-    sk_file.value = "";
-  });
-  elDropzoneSingleRef.dropzone.on("error", () => {
-    alert("Maksimal 1 File");
-  });
-
   const elmonthDetailSelect = monthDetailSelect.value;
   elmonthDetailSelect.Litepicker.on("render:day", (day, date) => {
     if (date.getDate() !== 1) {

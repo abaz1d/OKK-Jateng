@@ -125,7 +125,7 @@
           v-if="data.role == 'Guest'"
           class="w-6 h-6 object-fill stroke-2 stroke-black fill-yellow-200 bg-white mt-1 mx-auto rounded-full"
         />
-        <UserSquareIcon
+        <UserIcon
           v-else-if="data.role == 'Admin'"
           class="w-6 h-6 object-fill stroke-2 stroke-black fill-yellow-200 bg-white mt-1 mx-auto rounded-full"
         />
@@ -139,7 +139,8 @@
           <DropdownHeader tag="div" class="!font-normal">
             <div class="font-medium">{{ data.username }}</div>
             <div class="text-xs text-white/70 mt-0.5 dark:text-slate-500">
-              {{ data.role }} - {{ data.nama_region }}
+              {{ data.role }} {{ data.role === "Operator" ? "-" : "" }}
+              {{ data.nama_region }}
             </div>
           </DropdownHeader>
           <DropdownDivider class="border-white/[0.08]" />
@@ -288,7 +289,7 @@
                     v-if="data.role == 'Guest'"
                     class="w-6 h-6 stroke-2 stroke-black fill-yellow-200 bg-white -mt-1 mr-2 rounded-full whitespace-nowrap"
                   />
-                  <UserSquareIcon
+                  <UserIcon
                     v-else-if="data.role == 'Admin'"
                     class="w-6 h-6 stroke-2 stroke-black fill-yellow-200 bg-white -mt-1 mr-2 rounded-full whitespace-nowrap"
                   />
