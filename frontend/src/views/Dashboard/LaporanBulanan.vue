@@ -1,12 +1,35 @@
 <template>
   <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
-    <h2 class="text-lg font-medium mr-auto">
-      Laporan Bulanan per {{ date_select }}
-    </h2>
-    <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
-      <div class="relative xl:w-2/4 w-56 xl:mx-auto mr-2">
+    <h2 class="text-lg font-medium sm:mr-auto mb-4 sm:mb-0">Laporan Bulanan</h2>
+    <div class="w-full sm:w-auto flex sm:flex-row-reverse items-center sm:mt-0">
+      <table class="table-fixed sm:ml-4 mb-4 sm:mb-0">
+        <thead>
+          <tr>
+            <th class="border px-2 py-1" colspan="2">
+              {{ date_select }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border">
+            <td class="border-r px-2 py-1">
+              <UsersIcon class="block sm:hidden mx-auto" />
+              <span class="hidden sm:block">Total :</span>
+            </td>
+            <td class="px-2 py-1">
+              <span class="block sm:hidden text-center">{{
+                Dashboard.total_anggota
+              }}</span>
+              <span class="hidden sm:block"
+                >{{ Dashboard.total_anggota }} Anggota</span
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="relative w-full sm:w-auto xl:w-60 mx-2 xl:mx-auto sm:mb-0">
         <div
-          class="absolute rounded-l w-10 h-full flex items-center justify-center bg-slate-100 border text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400"
+          class="absolute rounded-l w-10 h-10 flex items-center justify-center bg-slate-100 border text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400"
         >
           <CalendarIcon class="w-4 h-4" />
         </div>
@@ -23,12 +46,12 @@
               years: true,
             },
           }"
-          class="form-control pl-14"
+          class="form-control h-10 pl-14"
         />
       </div>
       <a
         href=""
-        class="ml-auto sm:ml-0 btn px-2 h-10 box flex items-center text-primary"
+        class="btn px-2 h-10 box flex items-center text-primary mr-2 sm:ml-auto"
       >
         <RefreshCcwIcon class="w-4 h-4 sm:mr-3 sm:m-0 m-2" />
         <p class="sm:block hidden">Reload Data</p>
@@ -359,7 +382,7 @@ export default {
         })
         .catch((error) => {
           isLoading.value = false;
-          console.error(error);
+          console.error("watch date_select", error);
           this.$refs.modalErrorRef.errorDatabaseModal = true;
         });
     },
@@ -374,7 +397,7 @@ export default {
     });
 
     isLoading.value = true;
-    this.Dashboard.readTabel(date_select)
+    this.Dashboard.readTabel(date_select.value)
       .then(() => {
         this.initTabulator();
         this.reInitOnResizeWindow();

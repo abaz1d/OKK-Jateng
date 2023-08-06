@@ -173,7 +173,27 @@ module.exports = function (db) {
       ]);
       tabelUtama = rows;
 
-      res.json(new Response(tabelUtama));
+      // const inputDate = date_select;
+      // const dateObject = new Date(inputDate);
+      date_select.setUTCHours(0, 0, 0, 0);
+      date_select.setDate(date_select.getUTCDate() + 1);
+      const new_date_select = date_select.toISOString().split("T")[0];
+
+      reqSQL = `SELECT SUM(jumlah_anggota) as total_anggota_all
+      FROM (
+        SELECT DISTINCT ON (id_utama)
+        id_utama,
+        jumlah_anggota
+        FROM tabel_anggota
+        WHERE DATE_TRUNC('MONTH', periode_bulanan) <= $1
+        ORDER BY id_utama, periode_bulanan DESC
+        ) AS latest_data;`;
+
+      const data = await db.query(reqSQL, [[new_date_select]]);
+      const total = data.rows[0];
+
+      console.log(total);
+      res.json(new Response({ tabelUtama, total }));
     } catch (error) {
       console.error(error);
       res.status(500).json(new Response(error.toString(), false));
@@ -205,9 +225,9 @@ module.exports = function (db) {
         ? new Date(req.query.date_select)
         : "";
 
-          // date_select.setUTCHours(0, 0, 0, 0);
-          // date_select.setDate(date_select.getUTCDate() + 1);
-          // const new_date_select = date_select.toISOString().split("T")[0];
+      // date_select.setUTCHours(0, 0, 0, 0);
+      // date_select.setDate(date_select.getUTCDate() + 1);
+      // const new_date_select = date_select.toISOString().split("T")[0];
 
       let reqSQL;
       let argumentSQL;

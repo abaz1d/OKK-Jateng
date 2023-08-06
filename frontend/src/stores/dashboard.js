@@ -53,8 +53,13 @@ export const useDashboardStore = defineStore({
           `utama/read-table?date_select=${String(date_select)}`
         );
         if (data.success) {
-          this.tabelUtama = data.data;
-          return data.data;
+          this.tabelUtama = data.data.tabelUtama;
+          this.totalAnggota = parseInt(
+            data.data.total.total_anggota_all == null
+              ? 0
+              : data.data.total_anggota_all
+          );
+          return data.data.tabelUtama;
         }
       } catch (error) {
         throw new Error(error);
