@@ -10,7 +10,7 @@
                 class="z-30 rounded-l w-auto px-1 flex items-center justify-center bg-gray-100 border text-gray-600 dark:bg-dark-1 dark:border-dark-4 -mr-1"
               >
                 <UsersIcon class="mr-1" />
-                {{ Dashboard.total_anggota }}
+                {{ Dashboard.total_anggota ?? 0 }}
               </div>
               <TomSelect v-model="data_select" class="w-full z-50">
                 <option value="kosong" disabled>

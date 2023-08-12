@@ -37,9 +37,9 @@ export const useDashboardStore = defineStore({
           this.mainData = data.data.mainData;
           this.childData = data.data.childData;
           this.rawRegions = data.data.regions;
-          this.totalAnggota = parseInt(
-            data.data.total.total_anggota == null ? 0 : data.data.total_anggota
-          );
+          this.totalAnggota = this.totalAnggota =
+            data.data?.total?.total_anggota_all;
+
           return Auth.items;
         }
       } catch (error) {
@@ -54,11 +54,8 @@ export const useDashboardStore = defineStore({
         );
         if (data.success) {
           this.tabelUtama = data.data.tabelUtama;
-          this.totalAnggota = parseInt(
-            data.data.total.total_anggota_all == null
-              ? 0
-              : data.data.total_anggota_all
-          );
+          this.totalAnggota = data.data?.total?.total_anggota_all;
+
           return data.data.tabelUtama;
         }
       } catch (error) {

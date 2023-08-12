@@ -192,7 +192,6 @@ module.exports = function (db) {
       const data = await db.query(reqSQL, [[new_date_select]]);
       const total = data.rows[0];
 
-      console.log(total);
       res.json(new Response({ tabelUtama, total }));
     } catch (error) {
       console.error(error);

@@ -21,7 +21,7 @@
                 Dashboard.total_anggota
               }}</span>
               <span class="hidden sm:block"
-                >{{ Dashboard.total_anggota }} Anggota</span
+                >{{ Dashboard.total_anggota ?? 0 }} Anggota</span
               >
             </td>
           </tr>
