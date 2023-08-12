@@ -644,11 +644,7 @@ const monthDetailSelect2 = ref();
 const modalErrorRef = ref();
 const date_select = ref(moment(new Date().setDate(1)).format("D MMM, YYYY"));
 const data = ref([]);
-const data_select = ref(
-  localStorage.getItem("data_region")
-    ? localStorage.getItem("data_region")
-    : "JTG-01"
-);
+const data_select = ref(Auth.items?.id_region ?? "JTG-01");
 
 const date_bulanan = ref(moment(new Date().setDate(1)).format("D MMM, YYYY"));
 const anggota_bulanan = ref(0);
