@@ -4,7 +4,6 @@
     <div
       class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 px-5 py-4"
     >
-      <!-- {{ objectFiles }} -->
       <div class="w-10 h-10 flex-none image-fit">
         <img
           decoding="async"
@@ -12,7 +11,7 @@
           width="100"
           height="100"
           :src="
-            objectFiles.gambar_papan
+            objectFiles?.gambar_papan?.length > 4
               ? getImgUrl(objectFiles.gambar_papan)
               : data404
           "
@@ -88,7 +87,7 @@
                 decoding="async"
                 loading="lazy"
                 :src="
-                  objectFiles.gambar_depan
+                  objectFiles?.gambar_depan?.length > 4
                     ? getImgUrl(objectFiles.gambar_depan)
                     : data404
                 "
@@ -111,7 +110,7 @@
                 decoding="async"
                 loading="lazy"
                 :src="
-                  objectFiles.gambar_dalam
+                  objectFiles?.gambar_dalam?.length > 4
                     ? getImgUrl(objectFiles.gambar_dalam)
                     : data404
                 "
@@ -134,7 +133,7 @@
                 decoding="async"
                 loading="lazy"
                 :src="
-                  objectFiles.gambar_papan
+                  objectFiles?.gambar_papan?.length > 4
                     ? getImgUrl(objectFiles.gambar_papan)
                     : data404
                 "
@@ -157,7 +156,7 @@
                 decoding="async"
                 loading="lazy"
                 :src="
-                  objectFiles.gambar_dalam
+                  objectFiles?.gambar_dalam?.length > 4
                     ? getImgUrl(objectFiles.gambar_dalam)
                     : data404
                 "
@@ -279,7 +278,7 @@
                   class="w-full sm:pl-3 py-1 sm:text-left text-center text-sm border-0 border-b-2 border-gray-400 rounded-md dark:border-white dark:text-white outline-none focus:border-blue-400"
                 >
                   <embed
-                    v-if="objectFiles.file_sk"
+                    v-if="objectFiles?.file_sk?.length > 4"
                     :src="getFileUrl(objectFiles.file_sk)"
                     type="application/pdf"
                     class="w-full h-80 mt-4"
@@ -304,12 +303,12 @@
                   <a
                     target="_blank"
                     :href="
-                      objectFiles
+                      objectFiles?.gambar_depan?.length > 4
                         ? getImgUrl(objectFiles.gambar_depan)
                         : data404
                     "
                     :download="
-                      objectFiles
+                      objectFiles?.gambar_depan?.length > 4
                         ? getImgUrl(objectFiles.gambar_depan)
                         : data404
                     "
@@ -321,12 +320,12 @@
                   <a
                     target="_blank"
                     :href="
-                      objectFiles
+                      objectFiles?.gambar_dalam?.length > 4
                         ? getImgUrl(objectFiles.gambar_dalam)
                         : data404
                     "
                     :download="
-                      objectFiles
+                      objectFiles?.gambar_dalam?.length > 4
                         ? getImgUrl(objectFiles.gambar_dalam)
                         : data404
                     "
@@ -338,12 +337,12 @@
                   <a
                     target="_blank"
                     :href="
-                      objectFiles
+                      objectFiles?.gambar_papan?.length > 4
                         ? getImgUrl(objectFiles.gambar_papan)
                         : data404
                     "
                     :download="
-                      objectFiles
+                      objectFiles?.gambar_papan?.length > 4
                         ? getImgUrl(objectFiles.gambar_papan)
                         : data404
                     "
