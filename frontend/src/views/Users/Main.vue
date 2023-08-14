@@ -11,7 +11,6 @@
         <p class="hidden xl:block mr-1">User</p>
         Baru
       </button>
-      <!-- BEGIN: Modal Content -->
       <Modal
         backdrop="static"
         :show="modal_utama"
